@@ -4,6 +4,8 @@ import os
 
 engine = None
 
+print("K_SERVICE: ", os.getenv('K_SERVICE'))
+
 # Check if running in google cloud, by checking the environment variable K_SERVICE
 if os.getenv('K_SERVICE') is not None:
     engine = db.create_engine(os.environ['DB_CONNECTION_STRING'])
