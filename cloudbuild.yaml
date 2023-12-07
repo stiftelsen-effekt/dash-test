@@ -10,7 +10,7 @@ steps:
   # Step 3: Deploy the image to Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
-    args: ['run', 'deploy', 'your-service-name', '--image', 'gcr.io/$PROJECT_ID/dash-test', '--region', 'europe-north1', '--platform', 'managed', '--allow-unauthenticated']
+    args: ['run', 'deploy', 'dash-test', '--image', 'gcr.io/$PROJECT_ID/dash-test', '--region', 'europe-north1', '--platform', 'managed', '--allow-unauthenticated']
 
 images:
   - 'gcr.io/$PROJECT_ID/dash-test'
