@@ -29,11 +29,11 @@ For instructions on how to set up the Cloud SQL Proxy, please refer to the top-l
 To run the Docker image with environment variables, use the following command:
 
 ```bash
-docker run -p 8050:8050 -e DB_USER=analysis -e DB_PASSWORD=Password dash-test
+docker run -p 8080:8080 -e DB_USER=analysis -e DB_PASSWORD=Password dash-test
 ```
 
 Replace Password in DB_PASSWORD with the password for the Analysis user.
 
-This command runs the "dash-test" Docker image and maps the container's port 8050 to your local machine's port 8050. It also sets the specified environment variables.
+This command runs the "dash-test" Docker image and maps the container's port 8080 to your local machine's port 8080. It also sets the specified environment variables.
 
-Now, you should be able to access the application at `http://localhost:8050`.
+Now, you should be able to access the application at `http://localhost:8080`.
