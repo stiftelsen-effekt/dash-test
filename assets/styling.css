@@ -1,0 +1,28 @@
+@font-face {
+    font-family: 'Montserrat';
+    src: url("fonts/Montserrat-Medium.ttf");
+}
+
+@font-face {
+    font-family: 'Sigmar';
+    src: url("fonts/Sigmar-Regular.ttf");
+}
+
+@font-face {
+    font-family: 'ESKlarheitGrotesk';
+    src: url("fonts/ESKlarheitGrotesk-Regular.ttf");
+}
+
+*{
+    font-family: 'ESKlarheitGrotesk' !important;
+}
+
+body{
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.container {
+    max-width: 100vw;
+    margin:0;
+}
+

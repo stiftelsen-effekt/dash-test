@@ -1,0 +1,18 @@
+,ID,full_name,abbriv,short_desc,long_desc,info_url,std_percentage_share,is_active,ordering
+0,1,Against Malaria Foundation,AMF,Against Malaria Foundation driver preventivt arbeid gjennom distribusjon av impregnerte malarianett. Studier viser at for 8kr beskyttes én person i minst ett år.,Mygnetting til folket,https://gieffektivt.no/organisasjoner,0,1,2.0
+1,2,SCI Foundation,SCI,SCI Foundation bekjemper neglisjerte tropesykdommer som blant annet sneglefeber ved bruk av kostnadseffektive medisiner i Jemen og Afrika sør for Sahara.,Sci til folket,https://gieffektivt.no/organisasjoner,0,0,5.0
+2,3,The End Fund,End,end ,End,https://gieffektivt.no/organisasjoner,0,0,
+3,4,Malaria Consortium,MC,"Malaria Consortium utfører seasonal malaria chemoprevention (SMC) som forhindrer smitte  i Afrika, studier viser at denne metoden er svært kostnadseffektiv.",mc,https://gieffektivt.no/organisasjoner,0,1,4.0
+4,5,Deworm the World,DtW,DtW,DtW,https://gieffektivt.no/organisasjoner,0,0,
+5,6,Sightsavers,Sight,Sight,Sight,https://gieffektivt.no/organisasjoner,0,0,
+6,7,GiveDirectly,GD,"GiveDirectly utfører kontantoverføringer til ekstremt fattige i Kenya og Uganda, slik at mottakerne kan selv velge hvor de vil investere pengene sine.",GD,https://gieffektivt.no/organisasjoner,0,1,6.0
+7,8,Project Healthy Children,PHC,PhC,PhC,https://gieffektivt.no/organisasjoner,0,0,
+8,9,No Lean Season,NLS,NLS,NLS,https://gieffektivt.no/organisasjoner,0,0,
+9,10,Helen Keller International,HKI,"Helen Keller International forebygger mangelsykdommer ved bruk av vitamin A-tilskudd, som er årsaken til halvparten av dødsfall blant barn under 5 år.",HKI,https://gieffektivt.no/organisasjoner,0,1,3.0
+10,11,Drift av Gi Effektivt,Drift,Penger donert til oss brukes til videre drift og utvikling av våre tjenester. ,gieffektivt.no,https://gieffektivt.no/organisasjoner,0,1,10.0
+11,12,GiveWell Top Charities Fund,TCF,"GiveWell gjør en kontinuerlig vurdering av saksområder for å finne de mest trengende sakene, pengene utdeles så kvartalsvis til de mest effektive organisasjonene.",GiveWell,https://gieffektivt.no/organisasjoner,100,1,1.0
+12,13,GiveDirectly Borgerlønn,UBI,"GiveDirectly utfører kontantoverføringer til ekstremt fattige, og driver dessuten et forsøksprosjekt med borgerlønn i Kenya (UBI). Velg dette alternativet om du vil støtte det prosjektet spesifikt.",GiveDirectly Borgerlønn,https://gieffektivt.no/organisasjoner,0,1,7.0
+13,14,New Incentives,NI,"Når omsorgspersoner tar med et spedbarn til en klinikk for den første vaksinen, får de tilbud om å motta direkte kontantoverføringer hvis de fortsetter å komme tilbake i tråd med vaksinasjonsplanen.
+",NI,https://gieffektivt.no/organisasjoner,0,1,8.0
+14,15,GiveWell All Grants Fund,AGF,AGF,AGF,https://gieffektivt.no/organisasjoner,0,1,99.0
+15,16,GiveDirectly Zakat-fond,GDZF,GIveWell Zakat-fond,GIveWell Zakat-fond,https://gieffektivt.no/organisasjoner,0,0,9.0
