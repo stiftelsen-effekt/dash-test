@@ -197,7 +197,7 @@ def get_preprocessed_data_anon(db_conn):
     # Add flag for whether donor is classified as recurring
     rec_df = is_recurring(
         d_corr["Donor_ID"].values.tolist(),
-        ds_corr[["Donor_ID", "timestamp_confirmed", "Payment_ID"]],
+        ds_corr[["Donor_ID", "Timestamp_confirmed", "Payment_ID"]],
         pd.Timestamp.now(),
     )
     d_corr = d_corr.merge(rec_df, how="left", on="Donor_ID")
@@ -298,21 +298,21 @@ def set_date_registered_as_first_ds(d_corr, ds_corr):
             DataFrame with at least columns Donor_ID and date_registered
 
         ds_corr: pd.DataFrame
-            DataFrame with at least columns ID, Donor_ID, and timestamp_confirmed
+            DataFrame with at least columns ID, Donor_ID, and Timestamp_confirmed
 
 
     ------------------------------------------------------------------------
     Returns:
         d_corr: pd.DataFrame
             Same as input dataframe d, where date_registered is set as
-            the earliest timestamp_confirmed from ds_corr
+            the earliest Timestamp_confirmed from ds_corr
     """
-    first_ds = ds_corr[["Donor_ID", "timestamp_confirmed"]].groupby("Donor_ID").min()
+    first_ds = ds_corr[["Donor_ID", "Timestamp_confirmed"]].groupby("Donor_ID").min()
     d_corr = d_corr.merge(first_ds, how="left", on="Donor_ID")
     d_corr.rename(columns={"date_registered": "date_registered_old"}, inplace=True)
     d_corr.rename(
         columns={
-            "timestamp_confirmed": "date_registered",
+            "Timestamp_confirmed": "date_registered",
         },
         inplace=True,
     )
@@ -359,17 +359,17 @@ def merge_donors(var, dups, d_corr, ds_corr, tu_corr, donor_map):
             contains the mapping between the merged donors
     """
     ds_dups = dups.merge(ds_corr, how="inner", on="Donor_ID")
-    most_recent = ds_dups.groupby(by=[var]).agg({"timestamp_confirmed": ["max"]})
+    most_recent = ds_dups.groupby(by=[var]).agg({"Timestamp_confirmed": ["max"]})
     most_recent.columns = most_recent.columns.droplevel(0)
-    most_recent.rename(columns={"max": "timestamp_confirmed"}, inplace=True)
+    most_recent.rename(columns={"max": "Timestamp_confirmed"}, inplace=True)
     most_recent.reset_index(inplace=True)
 
     most_recent_d = ds_dups.merge(
-        most_recent, how="inner", on=[var, "timestamp_confirmed"]
+        most_recent, how="inner", on=[var, "Timestamp_confirmed"]
     )
-    most_recent_d = most_recent_d.sort_values(by=[var, "timestamp_confirmed", "ID"])
+    most_recent_d = most_recent_d.sort_values(by=[var, "Timestamp_confirmed", "ID"])
     most_recent_d = most_recent_d.drop_duplicates(
-        subset=[var, "timestamp_confirmed"], keep="last"
+        subset=[var, "Timestamp_confirmed"], keep="last"
     )
 
     most_recent_d = most_recent_d[["Donor_ID", var]].drop_duplicates(keep="last")
@@ -495,7 +495,7 @@ def is_recurring(d_ids, donations, timestamp):
         donations: pd.DataFrame
             All donations relevant for determining the recurring status of d_ids.
             Ie. at least all donations within last 101 days for donors in d_ids list
-            Columns Donor_ID, timestamp_confirmed and Payment_ID
+            Columns Donor_ID, Timestamp_confirmed and Payment_ID
 
         timestamp: pd.Timestamp
             The point in time for which to determine the recurring status of donors in the d_ids list
@@ -514,14 +514,14 @@ def is_recurring(d_ids, donations, timestamp):
 
     # Extract donations 101 days back in time from timestamp and 65 days forward in time from timestamp
     donations = donations[
-        (donations.timestamp_confirmed >= timestamp - pd.Timedelta(days=101))
-        & (donations.timestamp_confirmed <= timestamp + pd.Timedelta(days=65))
+        (donations.Timestamp_confirmed >= timestamp - pd.Timedelta(days=101))
+        & (donations.Timestamp_confirmed <= timestamp + pd.Timedelta(days=65))
     ]
 
     # Extract donations 35 days back in time from timestamp
     donations_35 = donations[
-        (donations.timestamp_confirmed >= timestamp - pd.Timedelta(days=35))
-        & (donations.timestamp_confirmed <= timestamp)
+        (donations.Timestamp_confirmed >= timestamp - pd.Timedelta(days=35))
+        & (donations.Timestamp_confirmed <= timestamp)
     ]
 
     # Get all donors that have not donated in the last 35 days
@@ -551,15 +551,15 @@ def is_recurring(d_ids, donations, timestamp):
         """
         donor_donations = donations[donations.Donor_ID == donor_id]
         donation_A_timestamp = donor_donations[
-            donor_donations.timestamp_confirmed <= timestamp
-        ].timestamp_confirmed.max()
+            donor_donations.Timestamp_confirmed <= timestamp
+        ].Timestamp_confirmed.max()
         # Get all donations from donor that are at least 20 days prior to or after donation A
         donations_20_days_prior_A = donor_donations[
-            donor_donations.timestamp_confirmed
+            donor_donations.Timestamp_confirmed
             <= donation_A_timestamp - pd.Timedelta(days=20)
         ]
         donations_20_days_after_A = donor_donations[
-            donor_donations.timestamp_confirmed
+            donor_donations.Timestamp_confirmed
             >= donation_A_timestamp + pd.Timedelta(days=20)
         ]
 
@@ -569,15 +569,15 @@ def is_recurring(d_ids, donations, timestamp):
 
         if not donations_20_days_prior_A.empty:
             # Only checking backwards in time
-            donation_B_timestamp = donations_20_days_prior_A.timestamp_confirmed.max()
+            donation_B_timestamp = donations_20_days_prior_A.Timestamp_confirmed.max()
             donations_20_days_prior_B = donations_20_days_prior_A[
-                donations_20_days_prior_A.timestamp_confirmed
+                donations_20_days_prior_A.Timestamp_confirmed
                 <= donation_B_timestamp - pd.Timedelta(days=20)
             ]
             if not donations_20_days_prior_B.empty:
                 # There is a donation at least 20 days before donation B
                 donation_C_timestamp = (
-                    donations_20_days_prior_B.timestamp_confirmed.max()
+                    donations_20_days_prior_B.Timestamp_confirmed.max()
                 )
                 if (donation_A_timestamp - donation_C_timestamp).days <= 65:
                     # The donation A, B and C were within 65 days of each other
@@ -588,15 +588,15 @@ def is_recurring(d_ids, donations, timestamp):
 
         if not donations_20_days_after_A.empty:
             # Only checking forwards in time
-            donation_B_timestamp = donations_20_days_after_A.timestamp_confirmed.min()
+            donation_B_timestamp = donations_20_days_after_A.Timestamp_confirmed.min()
             donations_20_days_after_B = donations_20_days_after_A[
-                donations_20_days_after_A.timestamp_confirmed
+                donations_20_days_after_A.Timestamp_confirmed
                 >= donation_B_timestamp + pd.Timedelta(days=20)
             ]
             if not donations_20_days_after_B.empty:
                 # There is a donation at least 20 days after donation B
                 donation_C_timestamp = (
-                    donations_20_days_after_B.timestamp_confirmed.min()
+                    donations_20_days_after_B.Timestamp_confirmed.min()
                 )
                 if (donation_C_timestamp - donation_A_timestamp).days <= 65:
                     # The donation A, B and C were within 65 days of each other
@@ -609,8 +609,8 @@ def is_recurring(d_ids, donations, timestamp):
             continue
 
         # There are donations both before and after donation A, but no direction satisfies the requirements by itself
-        donation_B_timestamp = donations_20_days_after_A.timestamp_confirmed.min()
-        donation_C_timestamp = donations_20_days_prior_A.timestamp_confirmed.max()
+        donation_B_timestamp = donations_20_days_after_A.Timestamp_confirmed.min()
+        donation_C_timestamp = donations_20_days_prior_A.Timestamp_confirmed.max()
 
         if (donation_B_timestamp - donation_C_timestamp).days <= 65:
             # The donation A, B and C were within 65 days of each other
@@ -649,8 +649,8 @@ def remove_direct_GE_donations(donations, db_conn):
     donations_orgs = donations.merge(direct_GE, how="left", on="KID_fordeling")
     donations_orgs["GE_percent"] = donations_orgs.GE_percent.fillna(0)
     donations_orgs = donations_orgs[donations_orgs.GE_percent != 100]
-    donations_orgs["sum_confirmed"] = (
-        donations_orgs["sum_confirmed"] * 0.01 * (100 - donations_orgs["GE_percent"])
+    donations_orgs["Sum_confirmed"] = (
+        donations_orgs["Sum_confirmed"] * 0.01 * (100 - donations_orgs["GE_percent"])
     )
     donations_orgs.drop(["GE_percent"], axis=1, inplace=True)
     return donations_orgs
@@ -661,8 +661,8 @@ def extract_direct_GE_donations(donations, db_conn):
     donations_GE = donations.merge(direct_GE, how="left", on="KID_fordeling")
     donations_GE["GE_percent"] = donations_GE.GE_percent.fillna(0)
     donations_GE = donations_GE[donations_GE.GE_percent != 0]
-    donations_GE["sum_confirmed"] = (
-        donations_GE["sum_confirmed"] * 0.01 * (donations_GE["GE_percent"])
+    donations_GE["Sum_confirmed"] = (
+        donations_GE["Sum_confirmed"] * 0.01 * (donations_GE["GE_percent"])
     )
     donations_GE.drop(["GE_percent"], axis=1, inplace=True)
     return donations_GE

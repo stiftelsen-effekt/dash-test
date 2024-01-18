@@ -14,7 +14,7 @@ else:
     database = 'EffektAnalysisDB'
     engine = db.create_engine(f"mysql+pymysql://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@{host}/{database}")
 
-def get_df():
-    return pd.read_sql_table(table_name='Scorecard_Organization_donations',con=engine.connect())
+def get_df(table_name):
+    return pd.read_sql_table(table_name=table_name,con=engine.connect())
 
 

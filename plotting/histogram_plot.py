@@ -3,9 +3,9 @@ import pandas as pd
 import plotly.graph_objects as go
 import database_import as dbi
 
-df = dbi.get_df(table_name='Donations', database='EffektDonasjonDB')
-df = df.sort_values(by='timestamp_confirmed')
-df.index = pd.to_datetime(df['timestamp_confirmed'])
+df = dbi.get_df(table_name='Donations')
+df = df.sort_values(by='Timestamp_confirmed')
+df.index = pd.to_datetime(df['Timestamp_confirmed'])
 
 # Filter out recurring donations
 ID_num_count = df['Donor_ID'].value_counts()
@@ -14,13 +14,13 @@ df_recurring = df.loc[df['Donor_ID'].isin(recurring_IDs)]
 
 #Get monthly donations for all, and recurring donations
 MDs = pd.DataFrame() #monthly donations
-MDs['sum_confirmed'] = df['sum_confirmed'].resample('M').sum() #Resample by day
+MDs['Sum_confirmed'] = df['Sum_confirmed'].resample('M').sum() #Resample by day
 MDs['date_name'] = [ts.month_name()[:3] + ' ' + str(ts.year) for ts in MDs.index]
 MDs['timestamp'] = MDs.index
 MDs.index = [i for i in range(0,len(MDs))]
 
 MDs_recurring = pd.DataFrame() #monthly donations
-MDs_recurring['sum_confirmed'] = df_recurring['sum_confirmed'].resample('M').sum() #Resample by day
+MDs_recurring['Sum_confirmed'] = df_recurring['Sum_confirmed'].resample('M').sum() #Resample by day
 MDs_recurring['date_name'] = [ts.month_name()[:3] + ' ' + str(ts.year) for ts in MDs_recurring.index]
 MDs_recurring['timestamp'] = MDs_recurring.index
 MDs_recurring.index = [i for i in range(0,len(MDs_recurring))]
@@ -36,7 +36,7 @@ def get_histogram(month_index_range, exclude_otd, n_bins=50):
     month_df = MDs_recurring if exclude_otd else MDs
     full_df = df_recurring if exclude_otd else df
     df_subset = get_df_subset_by_month(month_index_range, month_df=month_df, full_df=full_df)
-    donations = df_subset['sum_confirmed'].to_numpy()
+    donations = df_subset['Sum_confirmed'].to_numpy()
     fig = go.Figure()
     fig.add_trace(
         go.Histogram(

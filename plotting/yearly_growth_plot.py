@@ -9,12 +9,12 @@ def fixLeapYear(dates,donations):
     isNotLeapYearDate = ~(dates=='02-29')
     return dates[isNotLeapYearDate],donations[isNotLeapYearDate]
 
-# df = pd.read_csv('donations-effekt.csv', parse_dates=['timestamp_confirmed'])
-# df = df.sort_values(by='timestamp_confirmed')
-df = dbi.get_df(table_name='Donations',database='EffektDonasjonDB')
-# df = dbi.ds_corr.sort_values(by='timestamp_confirmed')
-df = df.sort_values(by='timestamp_confirmed')
-df.index = pd.to_datetime(df['timestamp_confirmed'])
+# df = pd.read_csv('donations-effekt.csv', parse_dates=['Timestamp_confirmed'])
+# df = df.sort_values(by='Timestamp_confirmed')
+df = dbi.get_df(table_name='Donations')
+# df = dbi.ds_corr.sort_values(by='Timestamp_confirmed')
+df = df.sort_values(by='Timestamp_confirmed')
+df.index = pd.to_datetime(df['Timestamp_confirmed'])
 
 # Filter out recurring donations
 ID_num_count = df['Donor_ID'].value_counts()
@@ -23,7 +23,7 @@ df_reccuring = df.loc[df['Donor_ID'].isin(recurring_IDs)]
 
 # Get yearly donations and sort by year
 DDs = pd.DataFrame() #daily donations
-DDs['value'] = df['sum_confirmed'].resample('D').sum() #Resample by day
+DDs['value'] = df['Sum_confirmed'].resample('D').sum() #Resample by day
 DDs['y-m-d'] = pd.to_datetime(DDs.index)
 DDs['y']= DDs['y-m-d'].dt.strftime('%Y')
 DDs['m-d'] = DDs['y-m-d'].dt.strftime('%m') + "-" + DDs['y-m-d'].dt.strftime('%d')

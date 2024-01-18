@@ -144,7 +144,7 @@ def add_histogram_trace(fig, org, row, col=4):
 
 #df = pd.read_csv('summary.csv')
 #df = dbi.get_df()
-df = dbi.get_df(table_name='Scorecard_Organization_donations', database='EffektAnalysisDB')
+df = dbi.get_df(table_name='Scorecard_Organization_donations')
 df.index = pd.to_datetime(df['Timestamp']).dt.date
 df['day'] = df.index
 df = df.sort_values(by='day')
