@@ -28,7 +28,7 @@ layout = html.Div(
     dbc.Container([
         dbc.Row(dbc.Col(graph)),
         dcc.Tooltip(id='graph-tooltip', direction='right', show=False, style={'backgroundColor':'#fafafa'}),
-    ]), style={'margin': '50px 0px 0px'}
+    ]), style={'margin': '50px 0px 0px', "width": "100%", "max-width":"1000px",}
 )
 
 @callback(

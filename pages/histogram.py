@@ -34,7 +34,7 @@ layout = dbc.Container([
             dbc.Col(onetime_donations_switch,  width={'size':4,'offset':1}),
         ], align='center', justify='start'), #style = {"height": "100%", 'background-color':'yellow'}), 
         dbc.Row(dbc.Col(histogram_graph)),
-        ], style={"width": "100%", "max-width":"900px", 'margin':0})
+        ], style={"width": "100%", "max-width":"1000px", 'margin':0})
 
 @callback(
     Output('histogram-graph','figure'),
