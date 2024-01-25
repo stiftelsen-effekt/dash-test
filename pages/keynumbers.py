@@ -12,7 +12,7 @@ layout = html.Div(
     dbc.Container([
         dbc.Row([
             dbc.Col([
-                html.Div([len(df['Donor_ID'].unique())], style=number_style),
+                html.Div([f"{len(df['Donor_ID'].unique()):,.0f}"], style=number_style),
                 html.Div(['Unike givere'], style={'text-align': 'center'})
             ], width=3),
             dbc.Col([
@@ -21,7 +21,7 @@ layout = html.Div(
             #], width=4, style={'border-left': '2px solid black','border-right': '2px solid black'}),
             ], width=6),
             dbc.Col([
-                html.Div([len(df.index)], style=number_style),
+                html.Div([f"{len(df.index):,.0f}"], style=number_style),
                 html.Div(['Donasjoner'], style={'text-align': 'center'})
             ], width=3)
         ], justify="center")
