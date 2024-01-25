@@ -9,7 +9,7 @@ yearly_donations_graph = dcc.Graph(
     id='yearly-donations-graph', 
     figure=plot.get_yearly_donations_plot(),
     config={'displayModeBar': False},
-    style={"width": "100%", "max-width":"900px"}
+    style={"width": "100%", "max-width":"1000px"}
 )
 
 layout = html.Div(

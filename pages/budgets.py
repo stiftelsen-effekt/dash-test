@@ -13,7 +13,7 @@ graph = dcc.Graph(
     figure=plot.plot_sankey(year=year_range[0]),
     config={'displayModeBar': False},
     clear_on_unhover=True,
-    style={"width": "100%"},
+    style={"width": "100%", "max-width":"1000px"},
 )
 
 slider = dcc.Slider(
@@ -38,7 +38,7 @@ layout = html.Div(
         dbc.Row(dbc.Col(year_dropdown, width=2)),
         html.Br(),
         dbc.Row(dbc.Col(graph)),
-        ], fluid=True, style={"width": "100%", "max-width":"900px", 'margin':0})#, style={'backgroundColor':'#fafafa'})
+        ], fluid=True, style={"width": "100%", "max-width":"1000px", 'margin':0})#, style={'backgroundColor':'#fafafa'})
 )
 
 @callback(

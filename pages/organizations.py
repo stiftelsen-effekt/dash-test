@@ -21,7 +21,7 @@ graph = dcc.Graph(
     figure=pl.get_plot(),
     config={'displayModeBar': False},
     clear_on_unhover=True,
-    style={"width": "100%", "max-width":"900px"},
+    style={"width": "100%", "max-width":"1000px"},
 )
 
 layout = html.Div(

@@ -23,7 +23,7 @@ month_slider = dcc.RangeSlider(
 histogram_graph = dcc.Graph(
     id='histogram-graph', 
     config={'displayModeBar': False}, #Hide options for saving graph, zooming etc
-    style={"width": "100%", "max-width":"900px"},
+    style={"width": "100%", "max-width":"1000px"},
 )
 
 layout = dbc.Container([

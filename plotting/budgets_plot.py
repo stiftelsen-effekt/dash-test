@@ -480,7 +480,7 @@ def plot_sankey(year):
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',
         font_family="ESKlarheit",
-        width=900,
+        #width=900,
         height=HEIGHT,
     )
     )
