@@ -3,6 +3,7 @@ import pandas as pd
 import plotly.graph_objects as go
 from datetime import datetime, timedelta
 import database_import as dbi
+
 pd.set_option("display.precision", 0)
 
 def fixLeapYear(dates,donations):
@@ -36,6 +37,7 @@ dates_by_year,donations_by_year = zip(*[ fixLeapYear(dts,dons) for dts,dons in z
 yMax = max([sum(dons) for dons in donations_by_year])
 
 yearly_dons_hovertemplate = '<b>Dato:</b> %{x}<br><b>Verdi:</b> %{y:,.0f} kr'
+
 def get_yearly_donations_plot():
     fig = go.Figure()
     for dates, dons, year_str in zip(dates_by_year, donations_by_year, year_strings):

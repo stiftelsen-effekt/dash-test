@@ -184,6 +184,7 @@ rows = len(sorted_orgs) + 1
 #width_ratios = [0.5, 2, 3, 3]
 #gs_kw = {'width_ratios': width_ratios, 'wspace':0, 'hspace':0, 'top':1, 'bottom':0, 'left':0, 'right':0}
 vert_spacing = 0.0
+
 def get_plot():
     fig = sp.make_subplots(rows=rows, cols=4, 
                            #shared_xaxes='columns', 

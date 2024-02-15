@@ -402,13 +402,12 @@ budgets = {
                 ],
 }
 
-
 def plot_sankey(year):
     #relevant_budget = budgets[year]
     relevant_budget = next(budget for budget in budgets_ if budget.year==year)
     #relevant_budget = sorted(budgets[year], key=lambda x: x[2])[::-1]
 
-    # links_df = pd.DataFrame(data={
+    # links_df = pd.DataFrame(data={´
     #     'Source': [lst[0] for lst in relevant_budget],
     #     'Target': [lst[1] for lst in relevant_budget],
     #     'Value':  [lst[2] for lst in relevant_budget],
